@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "strict": false,
+        "noEmit": true
+    },
+    "include": [
+        "lib/**/*.js",
+        "index.js"
+    ]
+}

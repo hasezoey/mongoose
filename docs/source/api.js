@@ -5,6 +5,7 @@
  */
 
 const dox = require('dox');
+const typedoc = require('typedoc');
 const fs = require('fs');
 const md = require('marked');
 
@@ -318,3 +319,19 @@ function parse() {
     out.push(data);
   }
 }
+
+async function test() {
+  const a = new typedoc.Application();
+  a.options.addReader(new typedoc.TSConfigReader());
+  a.options.addReader(new typedoc.TypeDocReader());
+
+  a.bootstrap({entryPoints:['./lib/index.js'], tsconfig: './tsconfig.typedoc.json',skipErrorChecking:true, plugin: 'typedoc-plugin-missing-exports', excludeExternals: true});
+
+  const p = a.convert();
+
+  await a.generateJson(p, './doc.json');
+  await a.generateDocs(p, 'out_docs');
+  console.log("generated doc.json")
+}
+
+test();
