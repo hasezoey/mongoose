@@ -30,9 +30,22 @@ require('acquit-ignore')();
 const { marked: markdown } = require('marked');
 const highlight = require('highlight.js');
 const { promisify } = require("util");
+// support github-like custom header ids
+// Example:
+// # Some Header {#custom-id}
+const CustomIdRefex = /{#([a-z][\w-]*)}(?: *)$/;
 const renderer = {
   heading: function(text, level, raw, slugger) {
-    const slug = slugger.slug(raw);
+    let slug;
+    const idMatch = CustomIdRefex.exec(raw);
+
+    // use github-like custom header if available, otherwise fallback to default slugger
+    if (idMatch) {
+      slug = idMatch[1];
+      text = text.replace(CustomIdRefex, '');
+    } else {
+      slug = slugger.slug(raw);
+    }
     return `<h${level} id="${slug}">
       <a href="#${slug}">
         ${text}
