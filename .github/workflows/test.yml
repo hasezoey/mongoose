@@ -64,12 +64,12 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Load MongoDB binary cache
-        id: cache-mongodb-binaries
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/mongodb-binaries
-          key: ${{ matrix.os }}-${{ matrix.mongodb }}
+      # - name: Load MongoDB binary cache
+      #   id: cache-mongodb-binaries
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.cache/mongodb-binaries
+      #     key: ${{ matrix.os }}-${{ matrix.mongodb }}
 
       - run: npm install
       - name: NPM Test without Coverage
@@ -97,12 +97,12 @@ jobs:
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: 16
-      - name: Load MongoDB binary cache
-        id: cache-mongodb-binaries
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/mongodb-binaries
-          key: deno-${{ env.MONGOMS_VERSION }}
+      # - name: Load MongoDB binary cache
+      #   id: cache-mongodb-binaries
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.cache/mongodb-binaries
+      #     key: deno-${{ env.MONGOMS_VERSION }}
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
